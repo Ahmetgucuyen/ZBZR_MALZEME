@@ -1,0 +1,44 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:l="sap.ui.layout">
+	<Dialog id="FaxNumberValueHelpRev" title="Mağaza Tipi Seç" titleAlignment="Center" icon="sap-icon://search" contentWidth="35%"
+		class="sapUiSizeCompact">
+		<fb:FilterBar search="handleFaxNumberAraRev" showFilterConfiguration="false" useToolbar="false" class="sapUiSizeCompact"
+			filterContainerWidth="10rem">
+			<fb:filterGroupItems>
+				<fb:FilterGroupItem groupName="G1" name="FaxNumber" visibleInFilterBar="true" label="Mağaza Tipi">
+					<fb:control>
+						<Input value="{/filterData/FaxNumber}" maxLength="10" submit="handleFaxNumberAraRev"/>
+					</fb:control>
+				</fb:FilterGroupItem>
+				<!--	<fb:FilterGroupItem groupName="G1" name="Vtext" visibleInFilterBar="true" label="Tanım">
+					<fb:control>
+						<Input value="{/filterData/Vtext}" maxLength="10" submit="handleFaxNumberAraRev"/>
+					</fb:control>
+				</fb:FilterGroupItem>-->
+			</fb:filterGroupItems>
+		</fb:FilterBar>
+		<Table id="idTableFaxNumberRevArama" width="auto" items="{/items}" noDataText="Girdiğiniz kriterlere ait veri bulunamadı." growing="true"
+			growingThreshold="40" growingScrollToLoad="true" class="sapUiResponsiveMargin sapUiSizeCompact" mode="None"
+			selectionChange="sActionFaxNumberRev">
+			<columns>
+				<Column width="3rem">
+					<Text text="Mağaza Tipi"></Text>
+				</Column>
+				<!--	<Column width="3rem">
+					<Text text="Tanım"></Text>
+				</Column>-->
+			</columns>
+			<items>
+				<ColumnListItem type="Active" press="handleFaxNumberSecRev">
+					<cells>
+						<Text text="{FaxNumber}"/>
+						<!--	<Text text="{Vtext}"/>-->
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+		<endButton>
+			<Button class="sapUiSizeCompact" text="Kapat" type="Reject" icon="sap-icon://sys-cancel" press="FaxNumberValueHelpRevClose"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

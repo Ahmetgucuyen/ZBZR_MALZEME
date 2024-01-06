@@ -1,0 +1,43 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:l="sap.ui.layout">
+	<Dialog id="MtartValueHelp" title="Malzeme Türü Seç" titleAlignment="Center" icon="sap-icon://search" contentWidth="35%"
+		class="sapUiSizeCompact">
+		<fb:FilterBar search="handleMtartAra" showFilterConfiguration="false" useToolbar="false" class="sapUiSizeCompact"
+			filterContainerWidth="10rem">
+			<fb:filterGroupItems>
+				<fb:FilterGroupItem groupName="G1" name="Mtart" visibleInFilterBar="true" label="Malzeme Türü">
+					<fb:control>
+						<Input value="{/filterData/Mtart}" maxLength="10" submit="handleMtartAra"/>
+					</fb:control>
+				</fb:FilterGroupItem>
+				<fb:FilterGroupItem groupName="G1" name="Mtbez" visibleInFilterBar="true" label="Tanım">
+					<fb:control>
+						<Input value="{/filterData/Mtbez}" maxLength="10" submit="handleMtartAra"/>
+					</fb:control>
+				</fb:FilterGroupItem>
+			</fb:filterGroupItems>
+		</fb:FilterBar>
+		<Table id="idTableMtartArama" width="auto" items="{/items}" noDataText="Girdiğiniz kriterlere ait veri bulunamadı." growing="true"
+			growingThreshold="40" growingScrollToLoad="true" class="sapUiResponsiveMargin sapUiSizeCompact" mode="None" selectionChange="sActionMtart">
+			<columns>
+				<Column width="3rem">
+					<Text text="Malzeme Türü"></Text>
+				</Column>
+				<Column width="3rem">
+					<Text text="Tanım"></Text>
+				</Column>
+			</columns>
+			<items>
+				<ColumnListItem type="Active" press="handleMtartSec">
+					<cells>
+						<Text text="{Mtart}"/>
+						<Text text="{Mtbez}"/>
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+		<endButton>
+			<Button class="sapUiSizeCompact" text="Kapat" type="Reject" icon="sap-icon://sys-cancel" press="MtartValueHelpClose"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

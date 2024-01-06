@@ -1,0 +1,42 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:l="sap.ui.layout">
+	<Dialog id="NumtpValueHelp" title="Barkod Seç" titleAlignment="Center" icon="sap-icon://search" contentWidth="35%" class="sapUiSizeCompact">
+		<fb:FilterBar search="handleNumtpAra" showFilterConfiguration="false" useToolbar="false" class="sapUiSizeCompact"
+			filterContainerWidth="10rem">
+			<fb:filterGroupItems>
+				<fb:FilterGroupItem groupName="G1" name="Numtp" visibleInFilterBar="true" label="Barkod">
+					<fb:control>
+						<Input value="{/filterData/Numtp}" maxLength="10" submit="handleNumtpAra"/>
+					</fb:control>
+				</fb:FilterGroupItem>
+				<fb:FilterGroupItem groupName="G1" name="Ntbez" visibleInFilterBar="true" label="Tanım">
+					<fb:control>
+						<Input value="{/filterData/Ntbez}" maxLength="10" submit="handleNumtpAra"/>
+					</fb:control>
+				</fb:FilterGroupItem>
+			</fb:filterGroupItems>
+		</fb:FilterBar>
+		<Table id="idTableNumtpArama" width="auto" items="{/items}" noDataText="Girdiğiniz kriterlere ait veri bulunamadı." growing="true"
+			growingThreshold="40" growingScrollToLoad="true" class="sapUiResponsiveMargin sapUiSizeCompact" mode="None" selectionChange="sActionNumtp">
+			<columns>
+				<Column width="3rem">
+					<Text text="Barkod"></Text>
+				</Column>
+				<Column width="3rem">
+					<Text text="Tanım"></Text>
+				</Column>
+			</columns>
+			<items>
+				<ColumnListItem type="Active" press="handleNumtpSec">
+					<cells>
+						<Text text="{Numtp}"/>
+						<Text text="{Ntbez}"/>
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+		<endButton>
+			<Button class="sapUiSizeCompact" text="Kapat" type="Reject" icon="sap-icon://sys-cancel" press="NumtpValueHelpClose"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

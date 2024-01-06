@@ -1,0 +1,30 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:m="sap.m" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout"
+	xmlns:l="sap.ui.layout" xmlns:mvc="sap.ui.core.mvc">
+	<Dialog title="Talep Revize Nedeni" icon="sap-icon://create" state="Success" contentWidth="20%" contentHeight="20%" draggable="true"
+		resizable="true">
+		<VBox justifyContent="Center" height="70%">
+			<f:SimpleForm id="SimpleFormToolbar4Revize" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="2" labelSpanM="3"
+				labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="1" columnsM="1"
+				singleContainerFullSize="false" ariaLabelledBy="Title1" binding="{products>/0/}">
+				<f:content>
+					<Label text="Açıklama (Zorunlu)" requiRevize="true">
+						<layoutData>
+							<l:GridData span="XL3 L4 M4 S12"/>
+						</layoutData>
+					</Label>
+					<TextArea value="" id="RevAciklama" rows="3" maxLength="199">
+						<layoutData>
+							<l:GridData span="XL2 L7 M7 S12"/>
+						</layoutData>
+					</TextArea>
+				</f:content>
+			</f:SimpleForm>
+		</VBox>
+		<beginButton>
+			<Button text="Gönder" press="onCreateRevize" type="Accept"/>
+		</beginButton>
+		<endButton>
+			<Button text="Vazgeç" press="onhandleRevizeClose" type="Reject"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

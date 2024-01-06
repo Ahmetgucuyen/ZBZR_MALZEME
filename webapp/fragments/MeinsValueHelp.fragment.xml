@@ -1,0 +1,37 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:l="sap.ui.layout">
+	<Dialog id="MeinsValueHelp" title="Birim Seç" titleAlignment="Center" icon="sap-icon://search" contentWidth="35%" class="sapUiSizeCompact">
+		<fb:FilterBar search="handleMeinsAra" showFilterConfiguration="false" useToolbar="false" class="sapUiSizeCompact"
+			filterContainerWidth="10rem">
+			<fb:filterGroupItems>
+				<fb:FilterGroupItem groupName="G1" name="Mseh3" visibleInFilterBar="true" label="Birim">
+					<fb:control>
+						<Input value="{/filterData/Mseh3}" maxLength="10" submit="handleMeinsAra"/>
+					</fb:control>
+				</fb:FilterGroupItem>
+			</fb:filterGroupItems>
+		</fb:FilterBar>
+		<Table id="idTableMeinsArama" width="auto" items="{/items}" noDataText="Girdiğiniz kriterlere ait veri bulunamadı." growing="true"
+			growingThreshold="40" growingScrollToLoad="true" class="sapUiResponsiveMargin sapUiSizeCompact" mode="None" selectionChange="sActionMeins">
+			<columns>
+				<Column width="3rem">
+					<Text text="Birim"></Text>
+				</Column>
+				<Column width="3rem">
+					<Text text="Tanım"></Text>
+				</Column>
+			</columns>
+			<items>
+				<ColumnListItem type="Active" press="handleMeinsSec">
+					<cells>
+						<Text text="{Mseh3}"/>
+						<Text text="{Msehl}"/>
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+		<endButton>
+			<Button class="sapUiSizeCompact" text="Kapat" type="Reject" icon="sap-icon://sys-cancel" press="MeinsValueHelpClose"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,1370 @@
+<mvc:View controllerName="app.ZBZR_MALZEME.controller.MalzemeAc" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.f.semantic" xmlns:footerbar="sap.ushell.ui.footerbar" xmlns:smartVariant="sap.ui.comp.smartvariants"
+	xmlns:core="sap.ui.core" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+	xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns:smartForm="sap.ui.comp.smartform"
+	xmlns:smartField="sap.ui.comp.smartfield" xmlns:l="sap.ui.layout" displayBlock="true" xmlns="sap.m" xmlns:f="sap.ui.layout.form"
+	xmlns:ui="sap.ui.table" xmlns:smartTable="sap.ui.comp.smarttable" xmlns:table="sap.ui.table" xmlns:m="sap.m" xmlns:u="sap.ui.unified"
+	xmlns:smartMultiInput="sap.ui.comp.smartmultiinput">
+	<App id="app">
+		<pages>
+			<Page id="page">
+				<content>
+					<IconTabBar id="idIconTabBar" select=".onTabbar" class="sapUiResponsiveContentPadding">
+						<items>
+							<!--Kategoriya EKRANI-->
+							<IconTabFilter icon="sap-icon://request" iconColor="Positive" count="{/ProductCollectionStats/Counts/Weight/Ok}" text="Yeni Talep Aç"
+								key="Ytalep" visible="{InputModel>/InputModelTab}">
+								<VBox class="sapUiSmallMargin">
+									<f:Form id="FormDisplay480_12120Dual3" editable="false" binding="{FormModel>/RequestItems/0}">
+										<f:layout>
+											<f:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0"
+												emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="3" columnsM="3" singleContainerFullSize="false"/>
+										</f:layout>
+										<f:formContainers>
+											<f:FormContainer>
+												<f:formElements>
+													<f:FormElement label="Tarih">
+														<f:fields>
+															<DatePicker id="RecDate" editable="{InputModel>/InputModelEdit1}"
+																value="{path: 'FormModel>RecDate', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'dd.MM.yyyy', strictParsing: true , UTC: true}}"/>
+														</f:fields>
+													</f:FormElement>
+												</f:formElements>
+											</f:FormContainer>
+											<f:FormContainer>
+												<f:formElements>
+													<f:FormElement label="Malzeme No">
+														<f:fields>
+															<Input id="Matnr" value="{FormModel>Matnr}" editable="{InputModel>/InputModelEdit1}" showValueHelp="true" valueHelpOnly="true"
+																valueHelpRequest="MatnrValueHelp" required="true"/>
+														</f:fields>
+													</f:FormElement>
+												</f:formElements>
+											</f:FormContainer>
+											<f:FormContainer>
+												<f:formElements>
+													<f:FormElement label="Malzeme Tanımı">
+														<f:fields>
+															<Input id="Maktx" value="{FormModel>Maktx}" editable="{InputModel>/InputModelEdit}" required="true" maxLength="40"/>
+														</f:fields>
+													</f:FormElement>
+												</f:formElements>
+											</f:FormContainer>
+										</f:formContainers>
+									</f:Form>
+								</VBox>
+								<VBox class="sapUiSmallMargin">
+									<f:Form id="FormDisplay480_12120Dual" editable="false" binding="{FormModel>/RequestItems/0}">
+										<f:layout>
+											<f:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0"
+												emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="3" columnsM="3" singleContainerFullSize="false"/>
+										</f:layout>
+										<f:formContainers>
+											<f:FormContainer>
+												<f:formElements>
+													<f:FormElement label="İkame Ürün">
+														<f:fields>
+															<Input id="MatnrIkame" value="{FormModel>Ikame}" editable="{InputModel>/InputModelEdit}" maxLength="18"/>
+															<Button text="Getir" press="IkameGet"></Button>
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="Mağaza Stok">
+														<f:fields>
+															<Input id="MagS" value="{FormModel>Magaza}" editable="false"/>
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="Depo Stok">
+														<f:fields>
+															<Input id="DepS" value="{FormModel>Depo}" editable="false"/>
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="Toplam Stok">
+														<f:fields>
+															<Input id="TopS" value="{FormModel>Labst}" editable="false"/>
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="Genel Blok">
+														<f:fields>
+															<Input id="Gblok" value="{FormModel>Mstae}" editable="false"/>
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="Satınalma Adet">
+														<f:fields>
+															<Select id="Peinh" forceSelection="false" change=".onPeinh" selectedKey="{FormModel>Peinh}" enabled="{InputModel>/InputModelEdit}"
+																valueState="Success">
+																<core:ListItem key="{PeinhKey}" text="{PeinhAd}"/>
+																<layoutData>
+																	<l:GridData span="XL3 L8 M8 S3"/>
+																</layoutData>
+															</Select>
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="Birim / Para Birimi">
+														<f:fields>
+															<Input id="Meins" value="{FormModel>Meins}" editable="{InputModel>/InputModelEdit}" showValueHelp="true" valueHelpOnly="true"
+																valueHelpRequest="MeinsValueHelp" required="true"/>
+															<Select id="Waers" forceSelection="false" change=".onWaers" selectedKey="{FormModel>Waers}" enabled="{InputModel>/InputModelEdit}">
+																<core:ListItem key="{WaersKey}" text="{WaersAd}" required="true"/>
+																<layoutData>
+																	<l:GridData span="XL3 L8 M8 S3"/>
+																</layoutData>
+															</Select>
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="Alış Fiyatı">
+														<f:fields>
+															<Input id="Netpr" value="{path: 'FormModel>Netpr', type:'sap.ui.model.type.Currency', formatOptions: {showMeasure: false}}" maxLength="11"
+																type="Currency" editable="{InputModel>/InputModelEdit}" required="true"/>
+														</f:fields>
+													</f:FormElement>
+												</f:formElements>
+											</f:FormContainer>
+											<f:FormContainer>
+												<f:formElements>
+													<f:FormElement label="İndirim / İndirim 2">
+														<f:fields>
+															<Input id="Indirim" value="{path: 'FormModel>Indirim', type:'sap.ui.model.type.Currency', formatOptions: {showMeasure: false}}"
+																maxLength="11" type="Currency" editable="{InputModel>/InputModelEdit}" placeholder="İndirim"/>
+															<Input id="Indirim2" value="{path: 'FormModel>Indirim2', type:'sap.ui.model.type.Currency', formatOptions: {showMeasure: false}}"
+																maxLength="11" type="Currency" editable="{InputModel>/InputModelEdit}" placeholder="İndirim 2"/>
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="Perakende">
+														<f:fields>
+															<Input id="Perakende" value="{path: 'FormModel>Perakende', type:'sap.ui.model.type.Currency', formatOptions: {showMeasure: false}}"
+																maxLength="11" type="Currency" editable="{InputModel>/InputModelEdit}" required="true"/>
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="Toptan">
+														<f:fields>
+															<Input id="Toptan" value="{path: 'FormModel>Toptan', type:'sap.ui.model.type.Currency', formatOptions: {showMeasure: false}}" maxLength="11"
+																type="Currency" editable="{InputModel>/InputModelEdit}"/>
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="Tedarikçi Malzeme Kod">
+														<f:fields>
+															<Input id="Bismt" value="{FormModel>Bismt}" editable="{InputModel>/InputModelEdit}" maxLength="18"/>
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="Listeleme Bedeli">
+														<f:fields>
+															<TextArea id="ListBedel" value="{FormModel>ListBedel}" editable="{InputModel>/InputModelEdit}" rows="2" maxLength="60"/>
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="Modul">
+														<f:fields>
+															<MultiInput id="Modul" value="{FormModel>Modul}" editable="{InputModel>/InputModelEdit}" showValueHelp="true" valueHelpOnly="true"
+																valueHelpRequest="ModulValueHelp" tokenChange="onTokenChange" required="true"/>
+														</f:fields>
+													</f:FormElement>
+												</f:formElements>
+											</f:FormContainer>
+											<f:FormContainer>
+												<f:formElements>
+													<f:FormElement label="Mağaza Tipi">
+														<f:fields>
+															<Input id="FaxNumber" value="{FormModel>FaxNumber}" editable="{InputModel>/InputModelEdit}" showValueHelp="true" valueHelpOnly="true"
+																valueHelpRequest="FaxNumberValueHelp"/>
+															<!--	<Select id="FaxNumber" items="{oViewModel>/FaxNumberBilgileri}" forceSelection="true" change=".onFaxNumber"
+																selectedKey="{FormModel>FaxNumber}" enabled="{InputModel>/InputModelEdit}">
+																<core:ListItem key="{oViewModel>DomvalueL}" text="{oViewModel>Ddtext}"/>
+															</Select>-->
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="Tedarik Tipi">
+														<f:fields>
+															<Input id="Sobsl" value="{FormModel>Sobsl}" editable="{InputModel>/InputModelEdit}" showValueHelp="true" valueHelpOnly="true"
+																valueHelpRequest="SobslValueHelp"/>
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="Depo İadesiz">
+														<f:fields>
+															<Select id="Ziaded" forceSelection="true" change=".onZiadet" selectedKey="{FormModel>Ziaded}" enabled="{InputModel>/InputModelEdit}">
+																<core:Item key="X" text="X"/>
+																<core:Item key="" text=" "/>
+															</Select>
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="Satıcı İadesiz">
+														<f:fields>
+															<Select id="Ziadet" forceSelection="true" change=".onZiadet" selectedKey="{FormModel>Ziadet}" enabled="{InputModel>/InputModelEdit}">
+																<core:Item key="X" text="X"/>
+																<core:Item key="" text=" "/>
+															</Select>
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="Koşul Türü">
+														<f:fields>
+															<Input id="Kschl" value="{FormModel>Kschl}" editable="{InputModel>/InputModelEdit}" showValueHelp="true" valueHelpOnly="true"
+																valueHelpRequest="KschlValueHelp"/>
+														</f:fields>
+													</f:FormElement>
+													<!--	<f:FormElement label="ZIADET">
+														<f:fields>
+															<Select id="Ziadet" forceSelection="true" change=".onZiadet" selectedKey="{FormModel>Ziadet}" enabled="{InputModel>/InputModelEdit}">
+																<core:Item key="X" text="X"/>
+																<core:Item key=" " text=" "/>
+															</Select>
+														</f:fields>
+													</f:FormElement>-->
+												</f:formElements>
+											</f:FormContainer>
+										</f:formContainers>
+									</f:Form>
+									<f:Form id="FormDisplay480_12120Dual2890" editable="false" title="." binding="{FormModel>/RequestItems/0}">
+										<f:layout>
+											<f:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0"
+												emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="3" columnsM="3" singleContainerFullSize="false"/>
+										</f:layout>
+										<f:formContainers>
+											<f:FormContainer>
+												<f:formElements>
+													<f:FormElement label="Yazlık">
+														<f:fields>
+															<Select id="Prat" items="{oViewModel>/PratBilgileri}" forceSelection="true" change=".onPrat" selectedKey="{FormModel>Prat1}"
+																enabled="{InputModel>/InputModelEdit}">
+																<core:ListItem key="{oViewModel>DomvalueL}" text="{oViewModel>DomvalueL}"/>
+															</Select>
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="Kışlık">
+														<f:fields>
+															<Select id="Prat2" items="{oViewModel>/PratBilgileri}" forceSelection="true" change=".onPrat" selectedKey="{FormModel>Prat2}"
+																enabled="{InputModel>/InputModelEdit}">
+																<core:ListItem key="{oViewModel>DomvalueL}" text="{oViewModel>DomvalueL}"/>
+															</Select>
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="P/L">
+														<f:fields>
+															<Select id="Prat3" items="{oViewModel>/PratBilgileri}" forceSelection="true" change=".onPrat" selectedKey="{FormModel>Prat3}"
+																enabled="{InputModel>/InputModelEdit}">
+																<core:ListItem key="{oViewModel>DomvalueL}" text="{oViewModel>DomvalueL}"/>
+															</Select>
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="Dağıtım">
+														<f:fields>
+															<Select id="Zdagitim" items="{oViewModel>/PratBilgileri}" forceSelection="true" selectedKey="{FormModel>Zdagitim}"
+																enabled="{InputModel>/InputModelEdit}">
+																<core:ListItem key="{oViewModel>DomvalueL}" text="{oViewModel>DomvalueL}"/>
+															</Select>
+														</f:fields>
+													</f:FormElement>
+												</f:formElements>
+											</f:FormContainer>
+											<f:FormContainer>
+												<f:formElements>
+													<f:FormElement label="Yılbaşı">
+														<f:fields>
+															<Select id="Prat4" items="{oViewModel>/PratBilgileri}" forceSelection="true" change=".onPrat" selectedKey="{FormModel>Prat4}"
+																enabled="{InputModel>/InputModelEdit}">
+																<core:ListItem key="{oViewModel>DomvalueL}" text="{oViewModel>DomvalueL}"/>
+															</Select>
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="Bahçe / Piknik / Mangal">
+														<f:fields>
+															<Select id="Prat5" items="{oViewModel>/PratBilgileri}" forceSelection="true" change=".onPrat" selectedKey="{FormModel>Prat5}"
+																enabled="{InputModel>/InputModelEdit}">
+																<core:ListItem key="{oViewModel>DomvalueL}" text="{oViewModel>DomvalueL}"/>
+															</Select>
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="Oyuncak">
+														<f:fields>
+															<Select id="Prat6" items="{oViewModel>/PratBilgileri}" forceSelection="true" change=".onPrat" selectedKey="{FormModel>Prat6}"
+																enabled="{InputModel>/InputModelEdit}">
+																<core:ListItem key="{oViewModel>DomvalueL}" text="{oViewModel>DomvalueL}"/>
+															</Select>
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="Dağıtım Başlangıç">
+														<f:fields>
+															<DatePicker id="ZdagitimBas" editable="{InputModel>/InputModelEdit}"
+																value="{path: 'FormModel>ZdagitimBas', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'dd.MM.yyyy', strictParsing: true , UTC: true}}"/>
+														</f:fields>
+													</f:FormElement>
+												</f:formElements>
+											</f:FormContainer>
+											<f:FormContainer>
+												<f:formElements>
+													<f:FormElement label="Portfoy Dışı">
+														<f:fields>
+															<Select id="Prat7" items="{oViewModel>/PratBilgileri}" forceSelection="true" change=".onPrat" selectedKey="{FormModel>Prat7}"
+																enabled="{InputModel>/InputModelEdit}">
+																<core:ListItem key="{oViewModel>DomvalueL}" text="{oViewModel>DomvalueL}"/>
+															</Select>
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="3 Ulduz">
+														<f:fields>
+															<Select id="Prat8" items="{oViewModel>/PratBilgileri}" forceSelection="true" change=".onPrat" selectedKey="{FormModel>Prat8}"
+																enabled="{InputModel>/InputModelEdit}">
+																<core:ListItem key="{oViewModel>DomvalueL}" text="{oViewModel>DomvalueL}"/>
+															</Select>
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label=" İthal Malzemeleri">
+														<f:fields>
+															<Select id="Prat9" items="{oViewModel>/PratBilgileri}" forceSelection="true" change=".onPrat" selectedKey="{FormModel>Prat9}"
+																enabled="{InputModel>/InputModelEdit}">
+																<core:ListItem key="{oViewModel>DomvalueL}" text="{oViewModel>DomvalueL}"/>
+															</Select>
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="Dağıtım Bitiş">
+														<DatePicker id="ZdagitimBit" editable="{InputModel>/InputModelEdit}"
+															value="{path: 'FormModel>ZdagitimBit', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'dd.MM.yyyy', strictParsing: true , UTC: true}}"/>
+													</f:FormElement>
+												</f:formElements>
+											</f:FormContainer>
+										</f:formContainers>
+									</f:Form>
+									<f:Form id="FormDisplay480_12120Dual2" editable="false" title="." binding="{FormModel>/RequestItems/0}">
+										<f:layout>
+											<f:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0"
+												emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="3" columnsM="3" singleContainerFullSize="false"/>
+										</f:layout>
+										<f:formContainers>
+											<f:FormContainer>
+												<f:formElements>
+													<f:FormElement label="Satıcı Kodu / Adı">
+														<f:fields>
+															<Input id="Lifnr" value="{FormModel>Lifnr}" editable="{InputModel>/InputModelEdit}" showValueHelp="true" valueHelpOnly="true"
+																valueHelpRequest="LifnrValueHelp" required="true"/>
+															<Input id="Name1" value="{FormModel>Name1}" showValueHelp="true" editable="{InputModel>/InputModelEdit1}"/>
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="Mahsulun Adı">
+														<f:fields>
+															<Input id="MaktxAz" value="{FormModel>MaktxAz}" editable="{InputModel>/InputModelEdit}" required="true" maxLength="40"/>
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="*Mahsul Statu" required="true">
+														<f:fields>
+															<Select id="MahsulStatu" forceSelection="true" selectedKey="{FormModel>MahsulStatu}" enabled="{InputModel>/InputModelEdit}" required="true">
+																<core:Item key="Açıq (Tərəzi) Məhsul" text="Açıq (Tərəzi) Məhsul"/>
+																<core:Item key="Normal Məhsul" text="Normal Məhsul"/>
+																<core:Item key="Qarışıq Məhsul" text="Qarışıq Məhsul"/>
+															</Select>
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="Mahsul Uzunluk">
+														<f:fields>
+															<Input id="UrunUzunluk" value="{FormModel>UrunUzunluk}" editable="{InputModel>/InputModelEdit}" required="true" placeholder="Uzunluk"/>
+															<!--	<Input id="UrunYukseklik" value="{FormModel>UrunYukseklik}" editable="{InputModel>/InputModelEdit}" required="true" placeholder="Yükseklik"/>
+															<Input id="UrunGenislik" value="{FormModel>UrunGenislik}" editable="{InputModel>/InputModelEdit}" required="true" placeholder="Genişlik"/>-->
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="Yükseklik / Genişlik">
+														<f:fields>
+															<!--	<Input id="UrunUzunluk" value="{FormModel>UrunUzunluk}" editable="{InputModel>/InputModelEdit}" required="true" placeholder="Uzunluk"/>-->
+															<Input id="UrunYukseklik" value="{FormModel>UrunYukseklik}" editable="{InputModel>/InputModelEdit}" required="true" placeholder="Yükseklik"/>
+															<Input id="UrunGenislik" value="{FormModel>UrunGenislik}" editable="{InputModel>/InputModelEdit}" required="true" placeholder="Genişlik"/>
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="Barkod">
+														<f:fields>
+															<Input id="Ean11" value="{FormModel>Ean11}" editable="{InputModel>/InputModelEdit}" maxLength="18"/>
+															<!--	<Input id="Ean11" value="{FormModel>Ean11}" editable="{InputModel>/InputModelEdit}" showValueHelp="true" valueHelpOnly="true"
+																valueHelpRequest="Ean11ValueHelp" required="true"/>-->
+														</f:fields>
+													</f:FormElement>
+												</f:formElements>
+											</f:FormContainer>
+											<f:FormContainer>
+												<f:formElements>
+													<f:FormElement label="Alış / Satış Vergisi">
+														<f:fields>
+															<Input id="Mwskz" value="{FormModel>Mwskz}" editable="{InputModel>/InputModelEdit}" showValueHelp="true" valueHelpOnly="true"
+																valueHelpRequest="MwskzValueHelp" required="true" placeholder="Alış Vergisi"/>
+															<Input id="Taklv" value="{FormModel>Taklv}" editable="{InputModel>/InputModelEdit}" showValueHelp="true" valueHelpOnly="true"
+																valueHelpRequest="TaklvValueHelp" required="true" placeholder="Satış Vergisi"/>
+														</f:fields>
+													</f:FormElement>
+													<!--	<f:FormElement label="Satış Vergisi">
+														<f:fields>
+															<Input id="Taklv" value="{FormModel>Taklv}" editable="{InputModel>/InputModelEdit}" showValueHelp="true" valueHelpOnly="true"
+																valueHelpRequest="TaklvValueHelp" required="true"/>
+														</f:fields>
+													</f:FormElement>-->
+													<f:FormElement label="Kutu içi Sayı">
+														<f:fields>
+															<Input id="KutuMiktar" value="{FormModel>KutuMiktar}" editable="{InputModel>/InputModelEdit}" required="true"/>
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="Yuvarlama Miktarı">
+														<f:fields>
+															<Input id="Bstrf" value="{FormModel>Bstrf}" editable="{InputModel>/InputModelEdit}" required="true"/>
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="Kutu Uzunluk">
+														<f:fields>
+															<Input id="KutuUzunluk" value="{FormModel>KutuUzunluk}" editable="{InputModel>/InputModelEdit}" required="true" placeholder="Uzunluk"/>
+															<!--	<Input id="KutuYukseklik" value="{FormModel>KutuYukseklik}" editable="{InputModel>/InputModelEdit}" required="true" placeholder="Yükseklik"/>
+															<Input id="KutuGenislik" value="{FormModel>KutuGenislik}" editable="{InputModel>/InputModelEdit}" required="true" placeholder="Genişlik"/>-->
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="Yükseklik / Genişlik">
+														<f:fields>
+															<!--	<Input id="KutuUzunluk" value="{FormModel>KutuUzunluk}" editable="{InputModel>/InputModelEdit}" required="true" placeholder="Uzunluk"/>-->
+															<Input id="KutuYukseklik" value="{FormModel>KutuYukseklik}" editable="{InputModel>/InputModelEdit}" required="true" placeholder="Yükseklik"/>
+															<Input id="KutuGenislik" value="{FormModel>KutuGenislik}" editable="{InputModel>/InputModelEdit}" required="true" placeholder="Genişlik"/>
+														</f:fields>
+													</f:FormElement>
+												</f:formElements>
+											</f:FormContainer>
+											<f:FormContainer>
+												<f:formElements>
+													<f:FormElement label="Net İçerik / Ölçü Birimi">
+														<f:fields>
+															<Input id="Inhal" value="{FormModel>Inhal}" editable="{InputModel>/InputModelEdit}" required="true"/>
+															<Input id="Inhme" value="{FormModel>Inhme}" editable="{InputModel>/InputModelEdit}" showValueHelp="true" valueHelpOnly="true"
+																valueHelpRequest="InhmeValueHelp"/>
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="Mal Grubu Kodu / Adı">
+														<f:fields>
+															<Input id="Matkl" value="{FormModel>Matkl}" editable="{InputModel>/InputModelEdit}" showValueHelp="true" valueHelpOnly="true"
+																valueHelpRequest="MatklValueHelp" required="true"/>
+															<Input id="Wgbez" value="{FormModel>Wgbez}" showValueHelp="true" editable="{InputModel>/InputModelEdit1}"/>
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="Perfor. Ağacı Kodu / Adı" visible="{= ${InputModel>/Sirket} === '2900' ? false : true}">
+														<f:fields>
+															<Input id="ZPergroup" value="{FormModel>ZPergroup}" editable="{InputModel>/InputModelEdit}" showValueHelp="true" valueHelpOnly="true"
+																valueHelpRequest="ZPergroupValueHelp" required="true"/>
+															<Input id="ZPergroupAd" value="{FormModel>ZPergroupAd}" showValueHelp="true" editable="{InputModel>/InputModelEdit1}"/>
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="Perfor. Ağacı Kodu / Adı" visible="{= ${InputModel>/Sirket} === '2900' ? true : false}">
+														<f:fields>
+															<Input id="ZPergroup1" value="{FormModel>ZPergroup1}" editable="{InputModel>/InputModelEdit}" showValueHelp="true" valueHelpOnly="true"
+																valueHelpRequest="ZPergroupValueHelp" required="true"/>
+															<Input id="ZPergroupAd1" value="{FormModel>ZPergroupAd1}" showValueHelp="true" editable="{InputModel>/InputModelEdit1}"/>
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="Marka Kodu / Adı">
+														<f:fields>
+															<Input id="BrandId" value="{FormModel>BrandId}" editable="{InputModel>/InputModelEdit}" showValueHelp="true" valueHelpOnly="true"
+																valueHelpRequest="BrandIdValueHelp" required="true"/>
+															<Input id="BrandDescr" value="{FormModel>BrandDescr}" showValueHelp="true" editable="{InputModel>/InputModelEdit1}"/>
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="Harici Mal Grubu">
+														<f:fields>
+															<Input id="Extwg" value="{FormModel>Extwg}" editable="{InputModel>/InputModelEdit}" showValueHelp="true" valueHelpOnly="true"
+																valueHelpRequest="ExtwgValueHelp" placeholder="Harici Mal Grubu" required="true"/>
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="Isı Koşulu">
+														<f:fields>
+															<Input id="Tempb" value="{FormModel>Tempb}" editable="{InputModel>/InputModelEdit}" showValueHelp="true" valueHelpOnly="true"
+																valueHelpRequest="TempbValueHelp" placeholder="Isı Koşulu"/>
+														</f:fields>
+													</f:FormElement>
+												</f:formElements>
+											</f:FormContainer>
+										</f:formContainers>
+									</f:Form>
+								</VBox>
+							</IconTabFilter>
+							<IconTabSeparator visible="{InputModel>/InputModelTab}"/>
+							<!--Onayımda Bekleyenler EKRANI-->
+							<IconTabFilter icon="sap-icon://activity-items" iconColor="Critical" text="Onayımda Bekleyenler" key="Otalep"
+								visible="{InputModel>/InputModelTab1}">
+								<ui:Table id="duranVarlikOnayTable" rows="{oViewModel>/taleOnay}" selectionMode="Single" visibleRowCount="6" showNoData="false"
+									fixedColumnCount="1" rowSelectionChange="sAction">
+									<ui:columns>
+										<ui:Column width="8rem">
+											<Label text="Talep No"/>
+											<ui:template>
+												<Text text="{oViewModel>Requestid}"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem">
+											<Label text="Tarih"/>
+											<ui:template>
+												<Text
+													text="{path: 'oViewModel>RecDate', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'dd.MM.yyyy', strictParsing: true , UTC: true}}"
+													wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="12rem">
+											<Label text="Malzeme No / Tanımı"/>
+											<ui:template>
+												<Text text="{oViewModel>Matnr} / {oViewModel>Maktx}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="6rem">
+											<Label text="İkame Ürün"/>
+											<ui:template>
+												<Text text="{oViewModel>Ikame}"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="6rem">
+											<Label text="Mağaza Stok"/>
+											<ui:template>
+												<Text text="{oViewModel>Magaza}"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="6rem">
+											<Label text="Depo Stok"/>
+											<ui:template>
+												<Text text="{oViewModel>Depo}"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="6rem">
+											<Label text="Toplam Stok"/>
+											<ui:template>
+												<Text text="{oViewModel>Labst}"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="6rem">
+											<Label text="Genel Blok"/>
+											<ui:template>
+												<Text text="{oViewModel>Mstae}"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="8rem">
+											<Label text="Satınalma Adeti"/>
+											<ui:template>
+												<Text text="{oViewModel>Peinh}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="8rem" visible="{InputModel>/InputModelQM}">
+											<Label text="Kalan Süre"/>
+											<ui:template>
+												<Input value="{oViewModel>Mhdrz}" wrapping="false" editable="{InputModel>/InputModelRole}"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="8rem" visible="{InputModel>/InputModelQM}">
+											<Label text="Karakteristik Değer"/>
+											<ui:template>
+												<Input value="{oViewModel>FreeChar}" wrapping="false" editable="{InputModel>/InputModelRole}"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="22rem" visible="{InputModel>/InputModelQM}">
+											<Label text="Etiket Bilgileri"/>
+											<ui:template>
+												<TextArea value="{oViewModel>EtiketTemp}" rows="3" editable="{InputModel>/InputModelRole}" maxLength="2965" width="20rem" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="8rem" visible="{InputModel>/InputModelAna}">
+											<Label text="Malzeme Türü"/>
+											<ui:template>
+												<Input value="{oViewModel>Mtart}" wrapping="false" showValueHelp="true" valueHelpOnly="true" valueHelpRequest="MtartValueHelp"
+													editable="{InputModel>/InputModelRole}"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="12rem" visible="{InputModel>/InputModelAna}">
+											<Label text="Malzeme Tipi"/>
+											<ui:template>
+												<Select items="{oViewModel>/AttypBilgileri}" forceSelection="true" change=".onAttyp" selectedKey="{oViewModel>Attyp}"
+													enabled="{InputModel>/InputModelRole}">
+													<core:ListItem key="{oViewModel>DomvalueL}" text="{oViewModel>Ddtext}"/>
+												</Select>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="8rem" visible="{InputModel>/InputModelAna}">
+											<Label text="Satış Organizasyonu"/>
+											<ui:template>
+												<Input value="{oViewModel>Ekorg}" wrapping="false" showValueHelp="true" valueHelpOnly="true" valueHelpRequest="EkorgValueHelp"
+													editable="{InputModel>/InputModelRole}"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="8rem" visible="{InputModel>/InputModelAna}">
+											<Label text="Dağıtım Kanalı"/>
+											<ui:template>
+												<Input value="{oViewModel>Vtweg}" wrapping="false" showValueHelp="true" valueHelpOnly="true" valueHelpRequest="VtwegValueHelp"
+													editable="{InputModel>/InputModelRole}"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="8rem" visible="{InputModel>/InputModelAna}">
+											<Label text="Barkod Tipi"/>
+											<ui:template>
+												<!--		<Input value="{oViewModel>Eantp}" wrapping="false" editable="{InputModel>/InputModelRole}"/>-->
+												<Input value="{oViewModel>Eantp}" editable="{InputModel>/InputModelRole}" showValueHelp="true" valueHelpOnly="true"
+													valueHelpRequest="Ean11ValueHelp" required="true"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="8rem" visible="{InputModel>/InputModelAna}">
+											<Label text="Standart Tanım"/>
+											<ui:template>
+												<Input value="{oViewModel>Normt}" wrapping="false" editable="{InputModel>/InputModelRole}"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="8rem" visible="{InputModel>/InputModelAna}">
+											<Label text="Hesap Tayin Grubu"/>
+											<ui:template>
+												<Input value="{oViewModel>Ktgrm}" wrapping="false" showValueHelp="true" valueHelpOnly="true" valueHelpRequest="KtgrmValueHelp"
+													editable="{InputModel>/InputModelRole}"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="8rem" visible="{InputModel>/InputModelAna}">
+											<Label text="Fiş Açıklaması"/>
+											<ui:template>
+												<Input value="{oViewModel>Maktm}" wrapping="false" editable="{InputModel>/InputModelRole}"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="10rem">
+											<Label text="Birim / Para Birimi"/>
+											<ui:template>
+												<Text text="{oViewModel>Meins} - {oViewModel>Waers}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem">
+											<Label text="Alış Fiyatı"/>
+											<ui:template>
+												<Text text="{oViewModel>Netpr}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="10rem">
+											<Label text="İndirim / İndirim 2"/>
+											<ui:template>
+												<Text text="{oViewModel>Indirim} - {oViewModel>Indirim2}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="10rem">
+											<Label text="Endirimli Alış Fiyatı"/>
+											<ui:template>
+												<Text text="{path: 'oViewModel>EndirimAlis', formatter: '.formatter.currencyValue'}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="6rem">
+											<Label text="Perakende"/>
+											<ui:template>
+												<Text text="{oViewModel>Perakende}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="12rem">
+											<Label text="Pərakənda Satış Marjı %"/>
+											<ui:template>
+												<Text text="{path: 'oViewModel>PerakendeMarj', formatter: '.formatter.currencyValue'}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="6rem">
+											<Label text="Toptan"/>
+											<ui:template>
+												<Text text="{oViewModel>Toptan}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem">
+											<Label text="Mağaza Tipi"/>
+											<ui:template>
+												<Text text="{oViewModel>FaxNumber}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem">
+											<Label text="Tedarik Tipi"/>
+											<ui:template>
+												<Text text="{oViewModel>Sobsl}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="6rem">
+											<Label text="Depo İadesiz"/>
+											<ui:template>
+												<Text text="{oViewModel>Ziaded}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="6rem">
+											<Label text="Satıcı İadesiz"/>
+											<ui:template>
+												<Text text="{oViewModel>Ziadet}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="8rem">
+											<Label text="Koşul Türü"/>
+											<ui:template>
+												<Text text="{oViewModel>Kschl}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="8rem">
+											<Label text="Yazlık"/>
+											<ui:template>
+												<Text text="{oViewModel>Prat1}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="8rem">
+											<Label text="Kışlık"/>
+											<ui:template>
+												<Text text="{oViewModel>Prat2}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="8rem">
+											<Label text="P/L"/>
+											<ui:template>
+												<Text text="{oViewModel>Prat3}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="8rem">
+											<Label text="Yılbaşı"/>
+											<ui:template>
+												<Text text="{oViewModel>Prat4}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="8rem">
+											<Label text="Bahçe / Piknik / Mangal"/>
+											<ui:template>
+												<Text text="{oViewModel>Prat5}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="8rem">
+											<Label text="Oyuncak"/>
+											<ui:template>
+												<Text text="{oViewModel>Prat6}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="8rem">
+											<Label text="Portfoy Dışı"/>
+											<ui:template>
+												<Text text="{oViewModel>Prat7}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="8rem">
+											<Label text="3 Ulduz"/>
+											<ui:template>
+												<Text text="{oViewModel>Prat8}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="8rem">
+											<Label text="İthal Malzemeleri"/>
+											<ui:template>
+												<Text text="{oViewModel>Prat9}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="8rem">
+											<Label text="Dağıtım"/>
+											<ui:template>
+												<Text text="{FormModel>Zdagitim}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="8rem">
+											<Label text="Dağıtım Başlangıç"/>
+											<ui:template>
+												<Text
+													text="{path: 'FormModel>ZdagitimBas', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'dd.MM.yyyy', strictParsing: true , UTC: true}}"
+													wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="8rem">
+											<Label text="Dağıtım Bitiş"/>
+											<ui:template>
+												<Text
+													text="{path: 'FormModel>ZdagitimBit', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'dd.MM.yyyy', strictParsing: true , UTC: true}}"
+													wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem">
+											<Label text="Satıcı Kodu / Adı"/>
+											<ui:template>
+												<Text text="{oViewModel>Lifnr} - {oViewModel>Name1}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem">
+											<Label text="Mahsulun Adı"/>
+											<ui:template>
+												<Text text="{oViewModel>MaktxAz}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="15rem">
+											<Label text="Mahsul Uzunluk / Yükseklik /Genişlik"/>
+											<ui:template>
+												<Text text="{oViewModel>UrunUzunluk} - {oViewModel>UrunYukseklik} - {oViewModel>UrunGenislik}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="5rem">
+											<Label text="Barkod"/>
+											<ui:template>
+												<Text text="{oViewModel>Ean11}" wrapping="false" maxLength="18"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem">
+											<Label text="Tedarikçi Malzeme Kod"/>
+											<ui:template>
+												<Text text="{oViewModel>Bismt}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem">
+											<Label text="Listeleme Bedeli"/>
+											<ui:template>
+												<Text text="{oViewModel>ListBedel}" editable="{InputModel>/InputModelEdit}" rows="2" maxLength="60"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem">
+											<Label text="Alış / Satış Vergisi"/>
+											<ui:template>
+												<Text text="{oViewModel>Mwskz} - {oViewModel>Taklv}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem">
+											<Label text="Kutu içi Sayı"/>
+											<ui:template>
+												<Text text="{oViewModel>KutuMiktar}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem">
+											<Label text="Yuvarlama Miktarı"/>
+											<ui:template>
+												<Text text="{oViewModel>Bstrf}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="15rem">
+											<Label text="Kutu Uzunluk / Yükseklik / Genişlik"/>
+											<ui:template>
+												<Text text="{oViewModel>KutuUzunluk} - {oViewModel>KutuYukseklik} - {oViewModel>KutuGenislik}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem">
+											<Label text="Net İçerik / Ölçü Birimi"/>
+											<ui:template>
+												<Text text="{oViewModel>Inhal} - {oViewModel>Inhme}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem">
+											<Label text="Mal Grubu Kodu / Adı"/>
+											<ui:template>
+												<Text text="{oViewModel>Matkl} - {oViewModel>Wgbez}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem" visible="{= ${InputModel>/Sirket} === '2900' ? true : false}">
+											<Label text="Perfor. Ağacı Kodu / Adı"/>
+											<ui:template>
+												<Text text="{oViewModel>ZPergroup1}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem" visible="{= ${InputModel>/Sirket} === '2900' ? false : true}">
+											<Label text="Perfor. Ağacı Kodu / Adı"/>
+											<ui:template>
+												<Text text="{oViewModel>ZPergroup}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem">
+											<Label text="Marka Kodu / Adı"/>
+											<ui:template>
+												<Text text="{oViewModel>BrandId} - {oViewModel>BrandDescr}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem">
+											<Label text="Harici Mal Grubu"/>
+											<ui:template>
+												<Text text="{oViewModel>Extwg}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem">
+											<Label text="Isı Koşulu"/>
+											<ui:template>
+												<Text text="{oViewModel>Tempb}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="6rem">
+											<Label text="Modul"/>
+											<ui:template>
+												<Text text="{oViewModel>Modul}"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="15rem">
+											<Label text="İptal / Revize Neden"/>
+											<ui:template>
+												<Text text="{oViewModel>Neden}"/>
+											</ui:template>
+										</ui:Column>
+									</ui:columns>
+								</ui:Table>
+							</IconTabFilter>
+							<!--Revizeler-->
+							<IconTabFilter icon="sap-icon://edit-outside" iconColor="Critical" text="Revizeler" key="Rtalep" visible="{InputModel>/InputModelRevize}">
+								<!--visible="{InputModel>/InputModelRevize}"-->
+								<ui:Table id="duranVarlikOnayTableRevize" rows="{oViewModel>/taleOnay}" selectionMode="Single" visibleRowCount="10" showNoData="false"
+									fixedColumnCount="1" rowSelectionChange="sAction">
+									<ui:columns>
+										<ui:Column width="8rem">
+											<Label text="Talep No"/>
+											<ui:template>
+												<Text text="{oViewModel>Requestid}"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem">
+											<Label text="Tarih"/>
+											<ui:template>
+												<Text
+													text="{path: 'oViewModel>RecDate', type: 'sap.ui.model.type.Date', formatOptions: {pattern: 'dd.MM.yyyy', strictParsing: true , UTC: true}}"
+													wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="8rem">
+											<Label text="Malzeme No"/>
+											<ui:template>
+												<Text text="{oViewModel>Matnr}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="12rem">
+											<Label text="Malzeme Tanımı"/>
+											<ui:template>
+												<Input value="{oViewModel>Maktx}" wrapping="false" maxLength="40"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="6rem">
+											<Label text="İkame Ürün"/>
+											<ui:template>
+												<Text text="{oViewModel>Ikame}"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="6rem">
+											<Label text="Mağaza Stok"/>
+											<ui:template>
+												<Text text="{oViewModel>Magaza}"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="6rem">
+											<Label text="Depo Stok"/>
+											<ui:template>
+												<Text text="{oViewModel>Depo}"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="6rem">
+											<Label text="Toplam Stok"/>
+											<ui:template>
+												<Text text="{oViewModel>Labst}"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="6rem">
+											<Label text="Genel Blok"/>
+											<ui:template>
+												<Text text="{oViewModel>Mstae}"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="8rem">
+											<Label text="Satınalma Adet"/>
+											<ui:template>
+												<Select id="PeinhRev" forceSelection="false" change=".onPeinh" selectedKey="{oViewModel>Peinh}" enabled="{InputModel>/InputModelEdit}"
+													valueState="Success">
+													<core:ListItem key="{PeinhKey}" text="{PeinhAd}"/>
+													<layoutData>
+														<l:GridData span="XL3 L8 M8 S3"/>
+													</layoutData>
+												</Select>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem">
+											<Label text="Birim"/>
+											<ui:template>
+												<Input value="{oViewModel>Meins}" editable="{InputModel>/InputModelEdit}" showValueHelp="true" valueHelpOnly="true"
+													valueHelpRequest="MeinsValueHelpRev" required="true"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="6rem">
+											<Label text=" Para Birimi"/>
+											<ui:template>
+												<Select id="WaersRev" forceSelection="false" change=".onWaers" selectedKey="{oViewModel>Waers}" enabled="{InputModel>/InputModelEdit}">
+													<core:ListItem key="{WaersKey}" text="{WaersAd}" required="true"/>
+													<layoutData>
+														<l:GridData span="XL3 L8 M8 S3"/>
+													</layoutData>
+												</Select>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem">
+											<Label text="Alış Fiyatı"/>
+											<ui:template>
+												<Input value="{oViewModel>Netpr}" maxLength="11" type="Currency" editable="{InputModel>/InputModelEdit}" required="true"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem">
+											<Label text="İndirim"/>
+											<ui:template>
+												<!--	<Text text="{oViewModel>Indirim} - {oViewModel>Indirim2}" wrapping="false"/>-->
+												<Input value="{oViewModel>Indirim}" maxLength="11" type="Currency" editable="{InputModel>/InputModelEdit}" placeholder="İndirim"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem">
+											<Label text="İndirim 2"/>
+											<ui:template>
+												<Input value="{oViewModel>Indirim2}" maxLength="11" type="Currency" editable="{InputModel>/InputModelEdit}" placeholder="İndirim 2"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="6rem">
+											<Label text="Perakende"/>
+											<ui:template>
+												<Input value="{oViewModel>Perakende}" maxLength="11" type="Currency" editable="{InputModel>/InputModelEdit}"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="6rem">
+											<Label text="Toptan"/>
+											<ui:template>
+												<Input value="{oViewModel>Toptan}" maxLength="11" type="Currency" editable="{InputModel>/InputModelEdit}"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem">
+											<Label text="Mağaza Tipi"/>
+											<ui:template>
+												<Input value="{oViewModel>FaxNumber}" editable="{InputModel>/InputModelEdit}" showValueHelp="true" valueHelpOnly="true"
+													valueHelpRequest="FaxNumberValueHelpRev"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem">
+											<Label text="Tedarik Tipi"/>
+											<ui:template>
+												<Input value="{oViewModel>Sobsl}" editable="{InputModel>/InputModelEdit}" showValueHelp="true" valueHelpOnly="true"
+													valueHelpRequest="SobslValueHelpRev"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="6rem">
+											<Label text="Depo İadesiz"/>
+											<ui:template>
+												<Select forceSelection="true" change=".onZiadet" selectedKey="{oViewModel>Ziaded}" enabled="{InputModel>/InputModelEdit}">
+													<core:Item key="X" text="X"/>
+													<core:Item key="" text=" "/>
+												</Select>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="6rem">
+											<Label text="Satıcı İadesiz"/>
+											<ui:template>
+												<Select forceSelection="true" change=".onZiadet" selectedKey="{oViewModel>Ziadet}" enabled="{InputModel>/InputModelEdit}">
+													<core:Item key="X" text="X"/>
+													<core:Item key="" text=" "/>
+												</Select>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="8rem">
+											<Label text="Koşul Türü"/>
+											<ui:template>
+												<Input value="{oViewModel>Kschl}" editable="{InputModel>/InputModelEdit}" showValueHelp="true" valueHelpOnly="true"
+													valueHelpRequest="KschlValueHelpRev"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="8rem">
+											<Label text="Yazlık"/>
+											<ui:template>
+												<Select items="{oViewModel>/PratBilgileri}" forceSelection="true" change=".onPrat" selectedKey="{oViewModel>Prat1}"
+													enabled="{InputModel>/InputModelEdit}">
+													<core:ListItem key="{oViewModel>DomvalueL}" text="{oViewModel>DomvalueL}"/>
+												</Select>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="8rem">
+											<Label text="Kışlık"/>
+											<ui:template>
+												<Select items="{oViewModel>/PratBilgileri}" forceSelection="true" change=".onPrat" selectedKey="{oViewModel>Prat2}"
+													enabled="{InputModel>/InputModelEdit}">
+													<core:ListItem key="{oViewModel>DomvalueL}" text="{oViewModel>DomvalueL}"/>
+												</Select>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="8rem">
+											<Label text="P/L"/>
+											<ui:template>
+												<Select items="{oViewModel>/PratBilgileri}" forceSelection="true" change=".onPrat" selectedKey="{oViewModel>Prat3}"
+													enabled="{InputModel>/InputModelEdit}">
+													<core:ListItem key="{oViewModel>DomvalueL}" text="{oViewModel>DomvalueL}"/>
+												</Select>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="8rem">
+											<Label text="Yılbaşı"/>
+											<ui:template>
+												<Select items="{oViewModel>/PratBilgileri}" forceSelection="true" change=".onPrat" selectedKey="{oViewModel>Prat4}"
+													enabled="{InputModel>/InputModelEdit}">
+													<core:ListItem key="{oViewModel>DomvalueL}" text="{oViewModel>DomvalueL}"/>
+												</Select>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="8rem">
+											<Label text="Bahçe / Piknik / Mangal"/>
+											<ui:template>
+												<Select items="{oViewModel>/PratBilgileri}" forceSelection="true" change=".onPrat" selectedKey="{oViewModel>Prat5}"
+													enabled="{InputModel>/InputModelEdit}">
+													<core:ListItem key="{oViewModel>DomvalueL}" text="{oViewModel>DomvalueL}"/>
+												</Select>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="8rem">
+											<Label text="Oyuncak"/>
+											<ui:template>
+												<Select items="{oViewModel>/PratBilgileri}" forceSelection="true" change=".onPrat" selectedKey="{oViewModel>Prat6}"
+													enabled="{InputModel>/InputModelEdit}">
+													<core:ListItem key="{oViewModel>DomvalueL}" text="{oViewModel>DomvalueL}"/>
+												</Select>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="8rem">
+											<Label text="Portfoy Dışı"/>
+											<ui:template>
+												<Select items="{oViewModel>/PratBilgileri}" forceSelection="true" change=".onPrat" selectedKey="{oViewModel>Prat7}"
+													enabled="{InputModel>/InputModelEdit}">
+													<core:ListItem key="{oViewModel>DomvalueL}" text="{oViewModel>DomvalueL}"/>
+												</Select>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="8rem">
+											<Label text="3 Ulduz"/>
+											<ui:template>
+												<Select items="{oViewModel>/PratBilgileri}" forceSelection="true" change=".onPrat" selectedKey="{oViewModel>Prat8}"
+													enabled="{InputModel>/InputModelEdit}">
+													<core:ListItem key="{oViewModel>DomvalueL}" text="{oViewModel>DomvalueL}"/>
+												</Select>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="8rem">
+											<Label text="İthal Malzemeleri"/>
+											<ui:template>
+												<Select items="{oViewModel>/PratBilgileri}" forceSelection="true" change=".onPrat" selectedKey="{oViewModel>Prat9}"
+													enabled="{InputModel>/InputModelEdit}">
+													<core:ListItem key="{oViewModel>DomvalueL}" text="{oViewModel>DomvalueL}"/>
+												</Select>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="8rem">
+											<Label text="Satıcı Kodu"/>
+											<ui:template>
+												<Input value="{oViewModel>Lifnr}" editable="{InputModel>/InputModelEdit}" showValueHelp="true" valueHelpOnly="true"
+													valueHelpRequest="LifnrValueHelpRev" required="true"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="9rem">
+											<Label text="Satıcı Adı"/>
+											<ui:template>
+												<Text text="{oViewModel>Name1}" showValueHelp="true"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="8rem">
+											<Label text="Mahsulun Adı"/>
+											<ui:template>
+												<Input value="{oViewModel>MaktxAz}" wrapping="false"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="8rem">
+											<Label text="Mahsul Statu"/>
+											<ui:template>
+												<Select forceSelection="true" selectedKey="{oViewModel>MahsulStatu}" enabled="{InputModel>/InputModelEdit}">
+													<core:Item key="Açıq (Tərəzi) Məhsul" text="Açıq (Tərəzi) Məhsul"/>
+													<core:Item key="Normal Məhsul" text="Normal Məhsul"/>
+													<core:Item key="Qarışıq Məhsul" text="Qarışıq Məhsul"/>
+												</Select>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem">
+											<Label text="Mahsul Uzunluk"/>
+											<ui:template>
+												<Input value="{oViewModel>UrunUzunluk}" editable="{InputModel>/InputModelEdit}"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem">
+											<Label text="Mahsul Yükseklik"/>
+											<ui:template>
+												<Input value="{oViewModel>UrunYukseklik}" editable="{InputModel>/InputModelEdit}"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem">
+											<Label text="Mahsul Genişlik"/>
+											<ui:template>
+												<Input value="{oViewModel>UrunGenislik}" editable="{InputModel>/InputModelEdit}"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="6rem">
+											<Label text="Barkod"/>
+											<ui:template>
+												<Input value="{oViewModel>Ean11}" editable="{InputModel>/InputModelEdit}" maxLength="18"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem">
+											<Label text="Tedarikçi Malzeme Kod"/>
+											<ui:template>
+												<Input value="{oViewModel>Bismt}" editable="{InputModel>/InputModelEdit}" maxLength="18"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem">
+											<Label text="Listeleme Bedeli"/>
+											<ui:template>
+												<Input value="{oViewModel>ListBedel}" editable="{InputModel>/InputModelEdit}" rows="2" maxLength="60"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem">
+											<Label text="Alış Vergisi"/>
+											<ui:template>
+												<Input value="{oViewModel>Mwskz}" editable="{InputModel>/InputModelEdit}" showValueHelp="true" valueHelpOnly="true"
+													valueHelpRequest="MwskzValueHelpRev" required="true"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem">
+											<Label text="Satış Vergisi"/>
+											<ui:template>
+												<Input value="{oViewModel>Taklv}" editable="{InputModel>/InputModelEdit}" showValueHelp="true" valueHelpOnly="true"
+													valueHelpRequest="TaklvValueHelpRev" required="true" placeholder="Satış Vergisi"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem">
+											<Label text="Kutu içi Sayı"/>
+											<ui:template>
+												<Input value="{oViewModel>KutuMiktar}" editable="{InputModel>/InputModelEdit}"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem">
+											<Label text="Yuvarlama Miktarı"/>
+											<ui:template>
+												<Input value="{oViewModel>Bstrf}" editable="{InputModel>/InputModelEdit}"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem">
+											<Label text="Kutu Uzunluk"/>
+											<ui:template>
+												<Input value="{oViewModel>KutuUzunluk}" editable="{InputModel>/InputModelEdit}"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem">
+											<Label text="Kutu Yükseklik"/>
+											<ui:template>
+												<Input value="{oViewModel>KutuYukseklik}" editable="{InputModel>/InputModelEdit}" required="true" placeholder="Yükseklik"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem">
+											<Label text="Kutu Genişlik"/>
+											<ui:template>
+												<Input value="{oViewModel>KutuGenislik}" editable="{InputModel>/InputModelEdit}" required="true" placeholder="Genişlik"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem">
+											<Label text="Net İçerik"/>
+											<ui:template>
+												<Input value="{oViewModel>Inhal}" editable="{InputModel>/InputModelEdit}" required="true"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem">
+											<Label text="Ölçü Birimi"/>
+											<ui:template>
+												<Input value="{oViewModel>Inhme}" editable="{InputModel>/InputModelEdit}" showValueHelp="true" valueHelpOnly="true"
+													valueHelpRequest="InhmeValueHelpRev"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem">
+											<Label text="Mal Grubu Kodu"/>
+											<ui:template>
+												<Input value="{oViewModel>Matkl}" editable="{InputModel>/InputModelEdit}" showValueHelp="true" valueHelpOnly="true"
+													valueHelpRequest="MatklValueHelpRev" required="true"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem">
+											<Label text="Mal Grubu Adı"/>
+											<ui:template>
+												<Text text="{oViewModel>Wgbez}"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem" visible="{= ${InputModel>/Sirket} === '2900' ? true : false}">
+											<Label text="Perfor. Ağacı Kodu / Adı"/>
+											<ui:template>
+												<Input value="{oViewModel>ZPergroup1}" editable="{InputModel>/InputModelEdit}" showValueHelp="true" valueHelpOnly="true"
+													valueHelpRequest="ZPergroupValueHelpRev" required="true"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem" visible="{= ${InputModel>/Sirket} === '2900' ? false : true}">
+											<Label text="Perfor. Ağacı Kodu / Adı"/>
+											<ui:template>
+												<Input value="{oViewModel>ZPergroup}" editable="{InputModel>/InputModelEdit}" showValueHelp="true" valueHelpOnly="true"
+													valueHelpRequest="ZPergroupValueHelpRev" required="true"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="8rem">
+											<Label text="Marka Kodu"/>
+											<ui:template>
+												<Input value="{oViewModel>BrandId}" editable="{InputModel>/InputModelEdit}" showValueHelp="true" valueHelpOnly="true"
+													valueHelpRequest="BrandIdValueHelpRev" required="true"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem">
+											<Label text="Marka Adı"/>
+											<ui:template>
+												<Text text="{oViewModel>BrandDescr}"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="8rem">
+											<Label text="Harici Mal Grubu"/>
+											<ui:template>
+												<Input value="{oViewModel>Extwg}" editable="{InputModel>/InputModelEdit}" showValueHelp="true" valueHelpOnly="true"
+													valueHelpRequest="ExtwgValueHelpRev"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="7rem">
+											<Label text="Isı Koşulu"/>
+											<ui:template>
+												<Input value="{oViewModel>Tempb}" editable="{InputModel>/InputModelEdit}" showValueHelp="true" valueHelpOnly="true"
+													valueHelpRequest="TempbValueHelpRev"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="6rem">
+											<Label text="Modul"/>
+											<ui:template>
+												<Text text="{oViewModel>Modul}"/>
+											</ui:template>
+										</ui:Column>
+										<ui:Column width="15rem">
+											<Label text="İptal / Revize Neden"/>
+											<ui:template>
+												<Text text="{oViewModel>Neden}"/>
+											</ui:template>
+										</ui:Column>
+									</ui:columns>
+								</ui:Table>
+							</IconTabFilter>
+							<IconTabSeparator visible="{InputModel>/InputModelRevize}"/>
+							<!--Smart Table-->
+							<IconTabFilter icon="sap-icon://activity-items" iconColor="Default" text="Taleplerim" key="Ttalep" visible="{InputModel>/InputModelTab2}">
+								<smartVariant:SmartVariantManagement id="pageVariantCall" persistencyKey="SmartVariantPKeyIsListesi" showCreateTile="true"/>
+								<smartFilterBar:SmartFilterBar id="smartFilterBar" entitySet="GetListSet" showFilterConfiguration="true" smartVariant="pageVariantCall"
+									persistencyKey="SmartFilterPKeyIsListesiSet">
+									<smartFilterBar:controlConfiguration></smartFilterBar:controlConfiguration>
+								</smartFilterBar:SmartFilterBar>
+								<smartTable:SmartTable id="smartCMMGiris" showTablePersonalisation="true" entitySet="GetListSet" class="sapUiMediumMarginTop"
+									initiallyVisibleFields="Requestid,Matnr,Maktx,Meins,Ikame,Depo,Magaza,Labst,Mstae,Peinh,Waers,Netpr,Indirim,Indirim2,Perakende,Toptan,FaxNumber,Sobsl,Prat1,Prat2,Prat3,Prat4,Prat5,Prat6,Prat7,Prat8,Prat9,Lifnr,Name1,MaktxAz,Ean11,Mwskz,Taklv,KutuMiktar,Onaylayan,Neden"
+									requestAtLeastFields="Requestid,Matnr,Maktx,Meins,Ikame,Depo,Magaza,Labst,Mstae,Peinh,Waers,Netpr,Indirim,Indirim2,Perakende,Toptan,FaxNumber,Sobsl,Prat1,Prat2,Prat3,Prat4,Prat5,Prat6,Prat7,Prat8,Prat9,Lifnr,Name1,MaktxAz,Ean11,Mwskz,Taklv,KutuMiktar,Onaylayan,Neden"
+									visible="{view>/pressedAbsid}" app:dateFormatSettings='\{"pattern":"dd.MM.yyyy"\}' beforeExport="onBeforeExport"
+									smartVariant="pageVariantCMGiris" showFullScreenButton="true" tableType="Table" useExportToExcel="true" useVariantManagement="true"
+									useTablePersonalisation="true" header="Taleplerim" showRowCount="true" beforeRebindTable="onBeforeRebindTable" persistencyKey="pKeyCMGiris"
+									smartFilterId="smartFilterBar">
+									<table:Table id="idTableCMMGirisRaporlama" selectionMode="None" visibleRowCount="8">
+										<table:columns>
+											<table:Column width="3rem" id="Statu2">
+												<table:customData>
+													<core:CustomData key="p13nData" value='\{"columnKey": "Statu", "leadingProperty": "Statu","columnIndex":"0"}'/>
+												</table:customData>
+												<Text text="" wrapping="false"/>
+												<table:template>
+													<core:Icon
+														src="{= ${Statu} === '01' ? 'sap-icon://edit-outside' : ${Statu} === '02' ? 'sap-icon://hr-approval' : ${Statu} === '03' ? 'sap-icon://hr-approval' : ${Statu} === '04' ? 'sap-icon://hr-approval' :${Statu} ==='05' ? 'sap-icon://hr-approval' :${Statu} ==='06' ? 'sap-icon://hr-approval':${Statu} ==='07' ? 'sap-icon://hr-approval' :${Statu} ==='08' ? 'sap-icon://hr-approval' :${Statu} ==='99' ? 'sap-icon://accept' :${Statu} ==='98' ? 'sap-icon://decline':${Statu} ==='97' ? 'sap-icon://edit-outside':''}"
+														color="#E69A17"></core:Icon>
+												</table:template>
+											</table:Column>
+											<table:Column width="10rem" id="idStatu1">
+												<table:customData>
+													<core:CustomData key="p13nData" value='\{"columnKey": "Statu", "leadingProperty": "Statu","columnIndex":"1"}'/>
+												</table:customData>
+												<Text text="Statu" wrapping="false"/>
+												<table:template>
+													<Text
+														text="{= ${Statu} === '01' ? 'Kategori Revize Talep Edildi' : ${Statu} === '02' ? 'QM Onay Bekliyor': ${Statu} === '03' ? 'Anaveri Onay Bekliyor' : ${Statu} === '04' ? 'Kategori Müdiri Onay Bekliyor' :${Statu} === '05' ? 'Kategori Direktör Onay Bekliyor' :${Statu} === '06' ? 'Satınalma Direktör Onay Bekliyor' :${Statu} === '07' ? 'Genel Direktör Onay Bekliyor' :${Statu} === '08' ? 'Tedarik Zincir Direktörü Onay Bekliyor':${Statu} === '99' ? 'Tamamlandı':${Statu} === '98' ? 'İptal Edildi':${Statu} === '97' ? 'Revize Talep Edildi':''}"/>
+												</table:template>
+											</table:Column>
+										</table:columns>
+									</table:Table>
+									<smartTable:customToolbar></smartTable:customToolbar>
+								</smartTable:SmartTable>
+							</IconTabFilter>
+						</items>
+					</IconTabBar>
+				</content>
+				<footer>
+					<m:OverflowToolbar >
+						<m:ToolbarSpacer/>
+						<m:Button type="Accept" text="Yarat" press="onCreateTalep" visible="{InputModel>/InputModelButtonYarat}"/>
+						<m:Button type="Accept" text="Onayla" press="onCreateOnay" visible="{InputModel>/InputModelButtonOnay}"/>
+						<m:Button type="Accept" text="Revize" press="onopenRevize" visible="{InputModel>/InputModelButtonOnay}"/>
+						<m:Button type="Accept" text="Revize Tamamla" press="onCreateRevizeTamamla" visible="{InputModel>/InputModelButtonYaratRev}"/>
+						<m:Button type="Reject" text="Talebi İptal Et" press="onopenRet" visible="{InputModel>/InputModelButtonOnayKA}"/>
+						<m:Button type="Reject" text="İptal Et" press="onCreateIptal" visible="{InputModel>/InputModelButtonYarat}"/>
+					</m:OverflowToolbar>
+				</footer>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

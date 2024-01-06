@@ -1,0 +1,46 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:l="sap.ui.layout">
+	<Dialog id="ModulValueHelp" title="Modul Seç" titleAlignment="Center" icon="sap-icon://search" contentWidth="35%" class="sapUiSizeCompact">
+		<fb:FilterBar search="handleSkopfAra" showFilterConfiguration="false" useToolbar="false" class="sapUiSizeCompact"
+			filterContainerWidth="10rem">
+			<fb:filterGroupItems>
+				<fb:FilterGroupItem groupName="G1" name="Skopf" visibleInFilterBar="true" label="Modul">
+					<fb:control>
+						<Input value="{/filterData/Skopf}" maxLength="10" submit="handleSkopfAra"/>
+					</fb:control>
+				</fb:FilterGroupItem>
+				<fb:FilterGroupItem groupName="G1" name="Vtext" visibleInFilterBar="true" label="Tanım">
+					<fb:control>
+						<Input value="{/filterData/Vtext}" maxLength="10" submit="handleSkopfAra"/>
+					</fb:control>
+				</fb:FilterGroupItem>
+			</fb:filterGroupItems>
+		</fb:FilterBar>
+		<Table id="idTableSkopfArama" width="auto" items="{/items}" noDataText="Girdiğiniz kriterlere ait veri bulunamadı." growing="true"
+			growingThreshold="40" growingScrollToLoad="true" class="sapUiResponsiveMargin sapUiSizeCompact" mode="MultiSelect"
+			selectionChange="sActionSkopf">
+			<columns>
+				<Column width="3rem">
+					<Text text="Modul"></Text>
+				</Column>
+				<Column width="3rem">
+					<Text text="Tanım"></Text>
+				</Column>
+			</columns>
+			<items>
+				<ColumnListItem type="Active">
+					<cells>
+						<Text text="{Skopf}"/>
+						<Text text="{Vtext}"/>
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+		<beginButton>
+			<Button class="sapUiSizeCompact" text="Seç" type="Accept" icon="sap-icon://sys-cancel" press="ModulValueHelpSelected"/>
+		</beginButton>
+		<endButton>
+			<Button class="sapUiSizeCompact" text="Kapat" type="Reject" icon="sap-icon://sys-cancel" press="ModulValueHelpClose"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

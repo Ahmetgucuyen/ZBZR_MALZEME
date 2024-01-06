@@ -1,0 +1,43 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:l="sap.ui.layout">
+	<Dialog id="TempbValueHelp" title="Isı Koşulu Seç" titleAlignment="Center" icon="sap-icon://search" contentWidth="35%"
+		class="sapUiSizeCompact">
+		<fb:FilterBar search="handleTempbAra" showFilterConfiguration="false" useToolbar="false" class="sapUiSizeCompact"
+			filterContainerWidth="10rem">
+			<fb:filterGroupItems>
+				<fb:FilterGroupItem groupName="G1" name="Tempb" visibleInFilterBar="true" label="Isı Koşulu">
+					<fb:control>
+						<Input value="{/filterData/Tempb}" maxLength="10" submit="handleTempbAra"/>
+					</fb:control>
+				</fb:FilterGroupItem>
+				<fb:FilterGroupItem groupName="G1" name="Tbtxt" visibleInFilterBar="true" label="Tanım">
+					<fb:control>
+						<Input value="{/filterData/Tbtxt}" maxLength="10" submit="handleTempbAra"/>
+					</fb:control>
+				</fb:FilterGroupItem>
+			</fb:filterGroupItems>
+		</fb:FilterBar>
+		<Table id="idTableTempbArama" width="auto" items="{/items}" noDataText="Girdiğiniz kriterlere ait veri bulunamadı." growing="true"
+			growingThreshold="40" growingScrollToLoad="true" class="sapUiResponsiveMargin sapUiSizeCompact" mode="None" selectionChange="sActionTempb">
+			<columns>
+				<Column width="3rem">
+					<Text text="Isı Koşulu"></Text>
+				</Column>
+				<Column width="3rem">
+					<Text text="Tanım"></Text>
+				</Column>
+			</columns>
+			<items>
+				<ColumnListItem type="Active" press="handleTempbSec">
+					<cells>
+						<Text text="{Tempb}"/>
+						<Text text="{Tbtxt}"/>
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+		<endButton>
+			<Button class="sapUiSizeCompact" text="Kapat" type="Reject" icon="sap-icon://sys-cancel" press="TempbValueHelpClose"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>
